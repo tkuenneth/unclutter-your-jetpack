@@ -1,0 +1,8 @@
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "RoleDemo"
+include ':app'
