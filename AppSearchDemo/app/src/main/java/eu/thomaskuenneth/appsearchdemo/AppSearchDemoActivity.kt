@@ -49,7 +49,7 @@ class AppSearchObserver(private val context: Context) : DefaultLifecycleObserver
     lateinit var sessionFuture: ListenableFuture<AppSearchSession>
 
     override fun onResume(owner: LifecycleOwner) {
-        sessionFuture = if (Build.VERSION.SDK_INT >= 31) {
+        sessionFuture = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             PlatformStorage.createSearchSession(
                 PlatformStorage.SearchContext.Builder(context, DATABASE_NAME)
                     .build()
