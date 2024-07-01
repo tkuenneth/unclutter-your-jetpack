@@ -48,7 +48,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.emoji2:emoji2-emojipicker:1.4.0")
+    implementation("androidx.emoji2:emoji2-emojipicker:1.5.0-alpha01")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
     implementation("androidx.activity:activity-compose:1.9.0")
