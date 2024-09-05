@@ -19,12 +19,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.core.role.RoleManagerCompat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class RoleDemoActivity : ComponentActivity() {
 
     private val roleMessage: MutableStateFlow<String> = MutableStateFlow("")
     private val launcher =
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         val manager = getSystemService(RoleManager::class.java)
         manager?.run {
             if (isRoleAvailable(RoleManagerCompat.ROLE_BROWSER)) {
@@ -59,7 +61,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val scope = rememberCoroutineScope()
             val message by roleMessage.collectAsState()
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .safeContentPadding()
+            ) {
                 Button(onClick = {
                     scope.launch { requestRole() }
                 }) {
@@ -68,6 +75,7 @@ class MainActivity : ComponentActivity() {
                 Text(
                     text = message,
                     style = MaterialTheme.typography.displayMedium,
+                    textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.align(Alignment.BottomCenter)
                         .safeContentPadding()
