@@ -39,9 +39,7 @@ class RoleDemoActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        val manager = getSystemService(RoleManager::class.java)
-        manager?.run {
+        val manager: RoleManager? = getSystemService(RoleManager::class.java)?.run {
             if (isRoleAvailable(RoleManagerCompat.ROLE_BROWSER)) {
                 roleMessage.update {
                     if (isRoleHeld(RoleManagerCompat.ROLE_BROWSER)) {
@@ -50,14 +48,16 @@ class RoleDemoActivity : ComponentActivity() {
                         ""
                     }
                 }
-            } else roleMessage.update { getString(R.string.role_not_available) }
+            } else {
+                roleMessage.update { getString(R.string.role_not_available) }
+            }
+            this
         }
         val requestRole = {
             val intent =
                 manager?.createRequestRoleIntent(RoleManagerCompat.ROLE_BROWSER) ?: Intent()
             launcher.launch(intent)
         }
-
         setContent {
             val scope = rememberCoroutineScope()
             val message by roleMessage.collectAsState()
@@ -77,7 +77,8 @@ class RoleDemoActivity : ComponentActivity() {
                     style = MaterialTheme.typography.displayMedium,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.align(Alignment.BottomCenter)
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
                         .safeContentPadding()
                 )
             }
