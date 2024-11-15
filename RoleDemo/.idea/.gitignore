@@ -7,3 +7,4 @@ misc.xml
 kotlinc.xml
 gradle.xml
 compiler.xml
+deploymentTargetSelector.xml
